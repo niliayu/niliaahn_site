@@ -16,13 +16,10 @@ writeArchive(
 
 writeArchive("lastfirst", 1, maxpg, 0, true,true);
 
-writeArchive("chapter1",1,3,-1,false,true) //writeArchive is for listing a RANGE of pages, take advantage of this by using headers to divide them into chapters or by month
+writeArchive("intro",1,4,-1,false,true) //writeArchive is for listing a RANGE of pages, take advantage of this by using headers to divide them into chapters or by month
 
-writeArchive("chapter2", 4, 9, -1, false,false);
+writeArchive("chapter1", 5, 12, -1, false,false);
 
-writeArchive("chapter3", 9, 12, -1, false,false);
-
-writeArchive("chapter4", 13, 15, -1, false,false);
 
 //below this point is stuff you don't really need to pay attention to if you're not super familiar with JS 
 
