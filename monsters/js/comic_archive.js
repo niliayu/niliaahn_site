@@ -14,7 +14,7 @@ writeArchive(
     true //if set to true, each comic will have a display number
 );
 
-writeArchive("lastfirst", 1, maxpg, 0, true,true);
+writeArchive("lastfirst", 1, maxpg, 0, false,true);
 
 writeArchive("intro",1,4,-1,false,true) //writeArchive is for listing a RANGE of pages, take advantage of this by using headers to divide them into chapters or by month
 
