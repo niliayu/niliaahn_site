@@ -1,7 +1,8 @@
 // comic_archive.js — builds the archive list. Originally by geno7 (Rarebit).
 // Each writeArchive() call fills the matching <div class="..."> on archive.html.
 
-writeArchive("chapter1", 1, maxpg, -1, false, true); // Chapter 1 (auto-updates with maxpg)
+writeArchive("chapter1", 1, chapter1LastPage, -1, false, true);
+writeArchive("chapter2", chapter1LastPage + 1, maxpg, -1, false, true);
 
 // ---- engine (no need to edit below) ----
 function writeArchive(divClass, min, max, reverseOrder, useThumbs, useNums) {
@@ -33,7 +34,7 @@ function writeArchive(divClass, min, max, reverseOrder, useThumbs, useNums) {
 		}
 
 		row.setAttribute("class", "archiveRow");
-		var linkToComic = indexPage + "?pg=" + i + navScrollTo;
+		var linkToComic = comicPageUrl(i);
 		(function (href) {
 			row.addEventListener("click", function () { window.location.href = href; });
 		})(linkToComic);

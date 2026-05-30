@@ -14,10 +14,33 @@ const comicHome = "../index.html"; // link back to the main site
 const comicTitleImage = ""; // optional logo image (e.g. "img/Title.png"); leave "" to use the styled text title
 const comicPlaceholder = "../assets/img/page-placeholder.svg"; // shown automatically until a page image exists
 
-// REALLY IMPORTANT ONE:
-// maxpg = how many pages the comic currently has. UPDATE THIS each time you post a new page,
-// and drop the matching image into img/comics/ (named pg1.png, pg2.png, …).
-const maxpg = 1;
+// REALLY IMPORTANT ONES:
+// maxpg = total number of pages currently posted.
+// chapter1LastPage = where chapter 1 ends (for archive grouping + title mapping).
+const maxpg = 17;
+const chapter1LastPage = 9;
+const pageDates = [
+    // Chapter 1 (starts Sep 2025)
+    [2025, 9, 5],   // pg1  - Chapter 1 title page
+    [2025, 9, 12],  // pg2  - Chapter 1 page 1
+    [2025, 9, 26],  // pg3
+    [2025, 10, 10], // pg4
+    [2025, 10, 24], // pg5
+    [2025, 11, 7],  // pg6
+    [2025, 11, 21], // pg7
+    [2025, 12, 5],  // pg8
+    [2025, 12, 19], // pg9
+
+    // Break in Jan 2026, then Chapter 2 begins in Feb
+    [2026, 2, 7],   // pg10 - Chapter 2 title page
+    [2026, 2, 21],  // pg11
+    [2026, 3, 7],   // pg12
+    [2026, 3, 21],  // pg13
+    [2026, 4, 4],   // pg14
+    [2026, 4, 18],  // pg15
+    [2026, 5, 2],   // pg16
+    [2026, 5, 29],  // pg17 (most recent; capped at today)
+];
 
 // COMIC PAGE SETTINGS
 const folder = "img/comics"; // folder that holds your comic pages
@@ -36,7 +59,13 @@ const navFolder = "img/comicnav";
 const navExt = "png";
 const navScrollTo = "#showComic"; // auto-scroll target when turning pages
 
-if (pg == 0) { pg = maxpg; } // load the MOST RECENT page by default
+// For this comic, opening index.html without ?pg= should start at page 1.
+// Also guard against bad values (NaN, negatives, too large).
+if (!Number.isFinite(pg) || pg < 1) {
+    pg = 1;
+} else if (pg > maxpg) {
+    pg = maxpg;
+}
 
 // pgData holds the info for each page. To add a page:
 //   1) drop the image into img/comics/ (pg2.png, pg3.png, …)
@@ -52,20 +81,48 @@ if (pg == 0) { pg = maxpg; } // load the MOST RECENT page by default
         authorNotes: ``
     },
 */
-const pgData = [
-    {
-        pgNum: 1,
-        title: "Chapter 1: Page 1",
-        date: writeDate(2026, 5, 29),
-        altText: "Jack the Lantern Boy — Chapter 1, Page 1",
-        imageFiles: 1,
-        authorNotes: `
-            <p>Welcome to <strong>Jack the Lantern Boy</strong>! Chapter 1 starts here.</p>
-            <p>(You can delete or edit this note in <code>js/comic_settings.js</code>.)</p>
-        `,
-    },
-    // Add Chapter 1 pages 2, 3, … here as you post them.
+// Explicit chapter/page map (Rarebit pg1..pg17). Title pages are separate from numbered story pages.
+const pageMeta = [
+    { chapter: 1, kind: "title" },
+    { chapter: 1, page: 1 },
+    { chapter: 1, page: 2 },
+    { chapter: 1, page: 3 },
+    { chapter: 1, page: 4 },
+    { chapter: 1, page: 5 },
+    { chapter: 1, page: 6 },
+    { chapter: 1, page: 7 },
+    { chapter: 1, page: 8 },
+    { chapter: 2, kind: "title" },
+    { chapter: 2, page: 1 },
+    { chapter: 2, page: 2 },
+    { chapter: 2, page: 3 },
+    { chapter: 2, page: 4 },
+    { chapter: 2, page: 5 },
+    { chapter: 2, page: 6 },
+    { chapter: 2, page: 7 },
 ];
+
+const pgData = pageMeta.map(function (meta, idx) {
+    const pageNumber = idx + 1;
+    const isTitle = meta.kind === "title";
+    const title = isTitle
+        ? `Chapter ${meta.chapter}: Title Page`
+        : `Chapter ${meta.chapter}: Page ${meta.page}`;
+    const altText = isTitle
+        ? `Jack the Lantern Boy — Chapter ${meta.chapter} title page`
+        : `Jack the Lantern Boy — Chapter ${meta.chapter}, Page ${meta.page}`;
+    const dateTuple = pageDates[idx] || [2026, 5, 29];
+    return {
+        pgNum: pageNumber, // global reader index shown in archive (1–17)
+        title: title,
+        date: writeDate(dateTuple[0], dateTuple[1], dateTuple[2]),
+        altText: altText,
+        imageFiles: 1,
+        authorNotes: pageNumber === 1
+            ? `<p>Welcome to <strong>Jack the Lantern Boy</strong>! Chapter 1 starts here.</p>`
+            : "",
+    };
+});
 
 // ---- helpers (no need to edit) ----
 function findGetParameter(parameterName) {
@@ -80,4 +137,10 @@ function findGetParameter(parameterName) {
 
 function writeDate(year, month, day) {
     return new Date(year, month - 1, day).toDateString().toString().slice(4);
+}
+
+// Build reader URLs that work from index.html and archive.html (including file:// previews).
+function comicPageUrl(page) {
+    var base = (typeof indexPage !== "undefined" && indexPage) ? indexPage : "index.html";
+    return base + "?pg=" + page + navScrollTo;
 }

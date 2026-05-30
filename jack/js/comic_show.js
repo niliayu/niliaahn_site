@@ -2,8 +2,11 @@
 // Originally by geno7 (Rarebit); restyled for Nilia Ahn's site with themed,
 // touch-friendly navigation buttons and graceful placeholders for missing pages.
 
+// Build a comic page URL that works from index.html and archive.html.
+// (Defined in comic_settings.js as comicPageUrl.)
+
 writeNav();                                   // render navigation rows
-writePageTitle(".writePageTitle", true, " · ");// page title (with page number)
+writePageTitle(".writePageTitle", false);// chapter title only (no global reader index)
 writePageClickable(".writePageClickable", true);// the page image (click to advance)
 writeAuthorNotes(".writeAuthorNotes");
 keyNav();                                     // arrow-key / WASD navigation
@@ -13,7 +16,7 @@ function writePageClickable(div, clickable) {
 	var el = document.querySelector(div);
 	if (!el) return;
 	if (clickable && pg < maxpg) {
-		el.innerHTML = `<div class="comicPage"><a href="?pg=${pg + 1}${navScrollTo}" aria-label="Next page">${writePage()}</a></div>`;
+		el.innerHTML = `<div class="comicPage"><a href="${comicPageUrl(pg + 1)}" aria-label="Next page">${writePage()}</a></div>`;
 	} else {
 		el.innerHTML = `<div class="comicPage">${writePage()}</div>`;
 	}
@@ -22,7 +25,11 @@ function writePageClickable(div, clickable) {
 function writePageTitle(div, toggleNum, char) {
 	var el = document.querySelector(div);
 	if (!el || pgData.length < pg) return;
-	var t = toggleNum ? (pgData[pg - 1].pgNum + char + pgData[pg - 1].title) : pgData[pg - 1].title;
+	var entry = pgData[pg - 1];
+	var t = entry.title;
+	if (toggleNum && entry.pgNum && entry.pgNum !== "Title") {
+		t = entry.pgNum + (char || " · ") + entry.title;
+	}
 	el.innerHTML = `<h1>${t}</h1>`;
 }
 
@@ -77,10 +84,10 @@ function writeNav() {
 	var atEnd = pg >= maxpg;
 
 	var html = `<nav class="comicNav" aria-label="Comic navigation">
-		${navButton("?pg=1" + navScrollTo, "&laquo; First", { disabled: atStart })}
-		${navButton("?pg=" + (pg - 1) + navScrollTo, "&lsaquo; Prev", { disabled: atStart })}
-		${navButton("?pg=" + (pg + 1) + navScrollTo, "Next &rsaquo;", { disabled: atEnd, primary: !atEnd })}
-		${navButton("?pg=" + maxpg + navScrollTo, "Last &raquo;", { disabled: atEnd })}
+		${navButton(comicPageUrl(1), "&laquo; First", { disabled: atStart })}
+		${navButton(comicPageUrl(pg - 1), "&lsaquo; Prev", { disabled: atStart })}
+		${navButton(comicPageUrl(pg + 1), "Next &rsaquo;", { disabled: atEnd, primary: !atEnd })}
+		${navButton(comicPageUrl(maxpg), "Last &raquo;", { disabled: atEnd })}
 	</nav>`;
 
 	rows.forEach(function (el) { el.innerHTML = html; });
@@ -91,9 +98,9 @@ function keyNav() {
 	document.addEventListener("keydown", function (e) {
 		var k = (e.key || "").toLowerCase();
 		if ((e.key === "ArrowRight" || k === "d") && pg < maxpg) {
-			window.location.href = "?pg=" + (pg + 1) + navScrollTo;
+			window.location.href = comicPageUrl(pg + 1);
 		} else if ((e.key === "ArrowLeft" || k === "a") && pg > 1) {
-			window.location.href = "?pg=" + (pg - 1) + navScrollTo;
+			window.location.href = comicPageUrl(pg - 1);
 		} else if (k === "w") {
 			window.scrollBy({ top: -40 });
 		} else if (k === "s") {
