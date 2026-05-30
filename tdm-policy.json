@@ -1,0 +1,8 @@
+{
+  "@context": "https://www.w3.org/ns/tdmrep",
+  "policyId": "https://niliaahn.com/tdm-policy.json",
+  "rightsHolder": "Nilia Ahn (Ailin Yu)",
+  "contact": "niliaahn@gmail.com",
+  "tdm-reservation": 1,
+  "statement": "All text and artwork on niliaahn.com is reserved against text & data mining, including the training, fine-tuning, or development of AI/ML systems, under EU Directive 2019/790 Article 4 and applicable copyright law. No license for AI training is granted. Licensing inquiries: niliaahn@gmail.com."
+}

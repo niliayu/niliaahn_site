@@ -1,0 +1,4 @@
+/* "Jack the Lantern Boy" uses the site-wide shared reader theme so it stays
+   visually consistent with niliaahn.com and How to Hunt Monsters.
+   Add any Jack-specific overrides below the import. */
+@import url("../../assets/css/comic.css");

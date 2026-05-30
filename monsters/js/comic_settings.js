@@ -10,6 +10,13 @@ let pg = Number(findGetParameter("pg")); //make "pg" mean the current page numbe
 //VARIABLES FOR TWEAKING
 ////////////////////////
 
+// SITE / BRANDING (used by the shared header, footer & reader styling)
+const comicTitle = "How to Hunt Monsters"; // shown in the masthead + browser tab
+const comicTagline = "How to make a killing from killing."; // short subtitle under the title
+const comicHome = "../index.html"; // link back to the main site
+const comicTitleImage = "img/Title.png"; // optional logo image; set to "" to use the text title instead
+const comicPlaceholder = "../assets/img/page-placeholder.svg"; // shown if a page image is missing
+
 //REALLY IMPORTANT ONES
 const maxpg = 12; //the current number of pages your comic has in total. this DOESNT necessarily mean number of IMAGE FILES as it doesn't count pages split into multiple files. 
 //YOU MUST UPDATE THIS NUMBER EVERY TIME YOU ADD A NEW PAGE or else it wont display the most recent page

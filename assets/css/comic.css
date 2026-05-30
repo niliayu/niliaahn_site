@@ -1,0 +1,213 @@
+/* =========================================================
+   Shared comic reader styling (How to Hunt Monsters, Jack…)
+   Inherits the site-wide design tokens from theme.css so the
+   reader feels uniform with the main site.
+   ========================================================= */
+@import url("theme.css");
+
+body { padding-top: 4.5rem; }
+
+/* ---------- Comic masthead (title banner) ---------- */
+.comic-masthead {
+	text-align: center;
+	padding: clamp(2.2rem, 6vw, 3.6rem) 1rem clamp(1.4rem, 4vw, 2.2rem);
+}
+.comic-masthead .eyebrow { justify-content: center; }
+.comic-masthead .comic-title {
+	font-size: clamp(2rem, 6vw, 3.4rem);
+	margin-bottom: 0.3rem;
+}
+.comic-masthead .comic-title a { color: var(--text); }
+.comic-masthead .comic-title a:hover { color: var(--blue-bright); }
+.comic-masthead .comic-tagline { color: var(--muted); margin: 0; font-size: 1.02rem; }
+.comic-masthead .title-logo { max-width: min(440px, 84%); margin: 0 auto 0.6rem; }
+
+/* ---------- Reader stage ---------- */
+#showComic {
+	max-width: 1000px;
+	margin-inline: auto;
+	padding-inline: clamp(0.8rem, 3vw, 1.5rem);
+	scroll-margin-top: 5rem;
+}
+
+.writePageTitle { text-align: center; }
+.writePageTitle h1 {
+	font-size: clamp(1.15rem, 3vw, 1.6rem);
+	color: var(--text-dim);
+	font-weight: 600;
+	letter-spacing: 0;
+	margin: 0.4rem 0 0.2rem;
+}
+
+/* ---------- The comic page image ---------- */
+.comicPage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.4rem;
+	margin: 1rem auto;
+}
+.comicPage a { display: inline-block; line-height: 0; border-radius: var(--radius-sm); }
+.comicPage img {
+	width: auto;
+	max-width: 100%;
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--border);
+	box-shadow: var(--shadow);
+	background: var(--surface);
+}
+.comicPage a:hover img { border-color: rgba(79, 140, 255, 0.4); }
+
+/* ---------- Navigation buttons ---------- */
+.comicNav {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+	justify-content: center;
+	gap: 0.6rem;
+	padding: 1rem 0;
+}
+.comic-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4em;
+	min-width: 5.4rem;
+	font-family: var(--font-head);
+	font-weight: 600;
+	font-size: 0.92rem;
+	padding: 0.7em 1.15em;
+	border-radius: 999px;
+	color: var(--text);
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid var(--border);
+	transition: transform 0.2s var(--ease), background 0.2s var(--ease),
+		border-color 0.2s var(--ease), color 0.2s var(--ease);
+	cursor: pointer;
+}
+.comic-btn:hover { transform: translateY(-2px); color: #fff; border-color: var(--blue); background: rgba(79, 140, 255, 0.12); }
+.comic-btn.is-primary { background: linear-gradient(100deg, var(--blue), var(--blue-deep)); border-color: transparent; color: #fff; }
+.comic-btn.is-primary:hover { box-shadow: 0 12px 26px -10px var(--blue-glow); }
+.comic-btn.is-disabled {
+	opacity: 0.34;
+	pointer-events: none;
+	cursor: default;
+	transform: none;
+}
+
+/* ---------- Author notes ---------- */
+#authorNotes, .author-notes {
+	max-width: 760px;
+	margin: 1.5rem auto 0;
+}
+.author-notes .card { padding: 1.4rem 1.6rem; }
+.author-notes h2 { font-size: 1.15rem; margin-bottom: 0.6rem; }
+.author-notes p { color: var(--text-dim); font-size: 0.98rem; }
+.author-notes p:last-child { margin-bottom: 0; }
+
+/* ---------- Sub pages (about / characters / archive) ---------- */
+.subPage {
+	max-width: 900px;
+	margin: clamp(1.4rem, 5vw, 2.6rem) auto;
+	padding: clamp(1.5rem, 5vw, 2.8rem);
+	background: linear-gradient(160deg, var(--surface) 0%, var(--bg-2) 100%);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+}
+.subPage:not(.archivePage) { text-align: center; }
+.subPage h1 { margin-bottom: 1rem; }
+.subPage h2 { font-size: 1.3rem; }
+.subPage p { color: var(--text-dim); }
+
+.subPage .leftPic, .subPage .rightPic {
+	max-width: 320px;
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--border);
+	box-shadow: var(--shadow);
+	margin: 0 auto 1.2rem;
+	float: none;
+}
+
+#socialMediaLinks, #returnLink { margin-top: 1.4rem; }
+#socialMediaLinks a { margin: 0 0.3rem; font-weight: 600; }
+#returnLink a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5em;
+	margin-top: 0.6rem;
+	font-family: var(--font-head);
+	font-weight: 600;
+}
+
+/* Character cards */
+.charTable { width: 100%; border-collapse: separate; border-spacing: 0; }
+.charTable td {
+	display: block;
+	width: 100%;
+	padding: 1.4rem 0;
+	border-top: 1px solid var(--border-soft);
+}
+.charTable tr:first-child td { border-top: 0; }
+.charTable img {
+	max-width: 240px;
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--border);
+	margin: 0 auto 1rem;
+	float: none;
+}
+
+/* ---------- Archive ---------- */
+.archivePage { text-align: left; }
+.archivePage h1, .archivePage h2 { text-align: center; }
+.archivePage h2 { margin-top: 1.6rem; color: var(--blue-bright); font-size: 1.1rem; letter-spacing: 0.04em; }
+
+.archiveTable {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0 0.5rem;
+	margin: 0.6rem auto 1.2rem;
+}
+.archiveRow {
+	cursor: pointer;
+	transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.archiveTable td {
+	background: rgba(255, 255, 255, 0.03);
+	border-top: 1px solid var(--border-soft);
+	border-bottom: 1px solid var(--border-soft);
+	padding: 0.7rem 0.9rem;
+	vertical-align: middle;
+	color: var(--text-dim);
+}
+.archiveTable td:first-child { border-left: 1px solid var(--border-soft); border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+.archiveTable td:last-child { border-right: 1px solid var(--border-soft); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.archiveRow:hover td { background: rgba(79, 140, 255, 0.12); color: #fff; }
+.archiveCellTitle strong { color: var(--text); font-family: var(--font-head); }
+.archiveRow:hover .archiveCellTitle strong { color: #fff; }
+.archiveCellDate { text-align: right; min-width: 120px; color: var(--muted); font-size: 0.9rem; }
+.archiveCellNum { text-align: center; min-width: 34px; color: var(--blue-bright); }
+.archiveCellThumb { width: 70px; }
+.archiveCellThumb img { width: 60px; border-radius: 8px; border: 1px solid var(--border); }
+.leftAlignTableText td { text-align: left; }
+
+/* ---------- Comic footer ---------- */
+.comic-footer {
+	text-align: center;
+	border-top: 1px solid var(--border-soft);
+	margin-top: 2.5rem;
+	padding: 2rem 1rem;
+	color: var(--muted);
+	font-size: 0.85rem;
+}
+.comic-footer p { margin: 0.2rem 0; }
+.comic-footer .powered { display: inline-flex; align-items: center; gap: 0.4rem; justify-content: center; margin-top: 0.4rem; opacity: 0.7; }
+.comic-footer .powered img { display: inline-block; }
+
+.keyhint { font-size: 0.8rem; color: var(--muted); text-align: center; margin-top: 0.4rem; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+	.comic-btn { min-width: 0; flex: 1 1 42%; font-size: 0.85rem; padding: 0.7em 0.6em; }
+	.comicNav { gap: 0.5rem; }
+}

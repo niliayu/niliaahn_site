@@ -1,13 +1,12 @@
 // comic_archive.js — builds the archive list. Originally by geno7 (Rarebit).
 // Each writeArchive() call fills the matching <div class="..."> on archive.html.
 
-writeArchive("intro",    1, 4,     -1, false, true); // Intro pages, chronological
-writeArchive("chapter1", 5, maxpg, -1, false, true); // Chapter 1 onward (auto-updates with maxpg)
+writeArchive("chapter1", 1, maxpg, -1, false, true); // Chapter 1 (auto-updates with maxpg)
 
 // ---- engine (no need to edit below) ----
 function writeArchive(divClass, min, max, reverseOrder, useThumbs, useNums) {
 	var getDiv = document.getElementsByClassName(divClass)[0];
-	if (!getDiv) return; // section not on this page — skip gracefully
+	if (!getDiv) return;
 
 	var archiveTable = document.createElement("TABLE");
 	archiveTable.setAttribute("class", "archiveTable");

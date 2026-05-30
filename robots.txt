@@ -1,0 +1,86 @@
+# niliaahn.com — crawler policy
+# Goal: stay visible in normal & AI search, but opt OUT of AI model training.
+# robots.txt is voluntary: well-behaved crawlers honor it, bad actors may not.
+
+# ----- Block AI TRAINING crawlers (no model training on my art) -----
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: AI2Bot
+Disallow: /
+
+User-agent: Timpibot
+Disallow: /
+
+User-agent: iaskspider/2.0
+Disallow: /
+
+User-agent: Webzio-Extended
+Disallow: /
+
+# ----- Allow normal search + AI retrieval (keeps citations / discoverability) -----
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+# ----- Everything else: allowed -----
+User-agent: *
+Allow: /
+
+Sitemap: https://niliaahn.com/sitemap.xml
